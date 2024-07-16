@@ -9,8 +9,9 @@ import com.duyvv.firstlesson.databinding.ItemHistoryBinding
 import com.duyvv.firstlesson.domain.History
 
 class HistoryAdapter : Adapter<HistoryAdapter.HistoryViewHolder>() {
-
-    inner class HistoryViewHolder(val binding: ItemHistoryBinding) : ViewHolder(binding.root)
+    inner class HistoryViewHolder(
+        val binding: ItemHistoryBinding,
+    ) : ViewHolder(binding.root)
 
     private val items = mutableListOf<History>()
 
@@ -21,17 +22,22 @@ class HistoryAdapter : Adapter<HistoryAdapter.HistoryViewHolder>() {
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
-        return HistoryViewHolder(
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): HistoryViewHolder =
+        HistoryViewHolder(
             ItemHistoryBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
-                false
-            )
+                false,
+            ),
         )
-    }
 
-    override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: HistoryViewHolder,
+        position: Int,
+    ) {
         val item = items[position]
         holder.binding.tvUp.text = if (item.isUp) "UP!" else "DOWN!"
         holder.binding.tvTitle.text = item.title

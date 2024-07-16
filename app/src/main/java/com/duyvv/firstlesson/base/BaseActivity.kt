@@ -5,15 +5,18 @@ import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
+import com.duyvv.firstlesson.ui.common.BGType
+import com.duyvv.firstlesson.utils.app.AppConstants.TOAST_DURATION
+import es.dmoral.toasty.Toasty
 
 abstract class BaseActivity<B : ViewBinding> : AppCompatActivity() {
-
     private var _binding: B? = null
-    protected val binding get() = _binding!!
+    val binding get() = _binding!!
 
-    protected var loadingDialog: ProgressDialog? = null
+    private var loadingDialog: ProgressDialog? = null
 
     abstract fun createBinding(): B
+
     abstract val context: Context
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,12 +53,22 @@ abstract class BaseActivity<B : ViewBinding> : AppCompatActivity() {
         }
     }
 
-    /*fun showMessage(context: Context, message: String, bgType: BGType) {
+    fun showMessage(
+        message: String,
+        bgType: BGType,
+    ) {
         when (bgType) {
-            BGType.BG_TYPE_NORMAL -> Toasty.normal(context, message, 10000).show()
-            BGType.BG_TYPE_SUCCESS -> Toasty.success(context, message, 10000, true).show()
-            BGType.BG_TYPE_WARNING -> Toasty.warning(context, message, 10000, true).show()
-            BGType.BG_TYPE_ERROR -> Toasty.error(context, message, 10000, true).show()
+            BGType.BG_TYPE_NORMAL ->
+                Toasty.normal(context, message, TOAST_DURATION).show()
+
+            BGType.BG_TYPE_SUCCESS ->
+                Toasty.success(context, message, TOAST_DURATION, true).show()
+
+            BGType.BG_TYPE_WARNING ->
+                Toasty.warning(context, message, TOAST_DURATION, true).show()
+
+            BGType.BG_TYPE_ERROR ->
+                Toasty.error(context, message, TOAST_DURATION, true).show()
         }
-    }*/
+    }
 }

@@ -1,6 +1,5 @@
 package com.duyvv.firstlesson.network.model
 
-
 import com.duyvv.firstlesson.domain.History
 import com.duyvv.firstlesson.domain.Profile
 import com.google.gson.annotations.SerializedName
@@ -13,24 +12,26 @@ data class ProfileResponse(
     var message: String? = null,
     var position: String? = null,
     @SerializedName("success")
-    var isSuccess: Boolean? = null
+    var isSuccess: Boolean? = null,
 ) {
-    fun toProfileModel() = Profile(
-        fullName = fullName ?: "",
-        histories = histories?.map { it.toHistoryModel() } ?: mutableListOf<History>(),
-        position = position ?: "",
-        isSuccess = isSuccess ?: false
-    )
+    fun toProfileModel() =
+        Profile(
+            fullName = fullName ?: "",
+            histories = histories?.map { it.toHistoryModel() } ?: mutableListOf<History>(),
+            position = position ?: "",
+            isSuccess = isSuccess ?: false,
+        )
 }
 
 data class HistoryResponse(
     @SerializedName("is_up")
     var isUp: Boolean? = null,
     @SerializedName("title")
-    var title: String? = null
+    var title: String? = null,
 ) {
-    fun toHistoryModel() = History(
-        isUp = isUp ?: false,
-        title = title ?: ""
-    )
+    fun toHistoryModel() =
+        History(
+            isUp = isUp ?: false,
+            title = title ?: "",
+        )
 }

@@ -22,7 +22,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -52,9 +52,12 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    //circle image view
+    // circle image view
     implementation(libs.circle.image.view)
 
-    //gson
+    // gson
     implementation(libs.gson)
+
+    // toasty
+    implementation(libs.toasty)
 }

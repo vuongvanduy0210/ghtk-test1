@@ -11,4 +11,9 @@
     <string name="b1">Bài 1</string>
     <string name="b2">Bài 2</string>
     <string name="b3">Bài 3</string>
+    <string name="x">x</string>
+    <string name="y">y</string>
+    <string name="point_1">Point 1:</string>
+    <string name="point_2">Point 2:</string>
+    <string name="point_3">Point 3:</string>
 </resources>

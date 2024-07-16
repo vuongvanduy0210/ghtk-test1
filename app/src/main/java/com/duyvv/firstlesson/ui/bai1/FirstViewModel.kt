@@ -3,7 +3,6 @@ package com.duyvv.firstlesson.ui.bai1
 import com.duyvv.firstlesson.base.BaseViewModel
 
 class FirstViewModel : BaseViewModel() {
-
     fun countCharacter(str: String): HashMap<Char, Int> {
         val hashMap = HashMap<Char, Int>()
         for (char in str) {

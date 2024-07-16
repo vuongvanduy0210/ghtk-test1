@@ -7,26 +7,81 @@ import android.view.ViewGroup
 import com.duyvv.firstlesson.base.BaseFragment
 import com.duyvv.firstlesson.databinding.FragmentSecondBinding
 import com.duyvv.firstlesson.domain.Point
-
+import com.duyvv.firstlesson.ui.MainActivity
+import com.duyvv.firstlesson.ui.common.BGType
 
 class SecondFragment : BaseFragment<FragmentSecondBinding>() {
-
     override fun getViewBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?
+        container: ViewGroup?,
     ) = FragmentSecondBinding.inflate(inflater, container, false)
 
-    override fun init() = Unit
+    private var activity: MainActivity? = null
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun init() {
+        activity = requireActivity() as MainActivity
+    }
+
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnDraw.setOnClickListener {
-            binding.triangleView.setPoints(
-                Point(100.0f, 200.0f),
-                Point(300.0f, 400.0f),
-                Point(200.0f, 500.0f)
-            )
+        binding.btnSubmit.setOnClickListener {
+            drawTriangle()
         }
     }
+
+    private fun drawTriangle() {
+        activity?.hideKeyboard()
+        getPointFromInput()?.let {
+            binding.triangleView.setPoints(it[0], it[1], it[2])
+        }
+    }
+
+    private fun getPointFromInput(): List<Point>? =
+        try {
+            val p1x =
+                binding.edtP1X.text
+                    .trim()
+                    .toString()
+                    .toFloat()
+            val p1y =
+                binding.edtP1Y.text
+                    .trim()
+                    .toString()
+                    .toFloat()
+            val p2x =
+                binding.edtP2X.text
+                    .trim()
+                    .toString()
+                    .toFloat()
+            val p2y =
+                binding.edtP2Y.text
+                    .trim()
+                    .toString()
+                    .toFloat()
+            val p3x =
+                binding.edtP3X.text
+                    .trim()
+                    .toString()
+                    .toFloat()
+            val p3y =
+                binding.edtP3Y.text
+                    .trim()
+                    .toString()
+                    .toFloat()
+            listOf(
+                Point(p1x, p1y),
+                Point(p2x, p2y),
+                Point(p3x, p3y),
+            )
+        } catch (e: IllegalArgumentException) {
+            activity?.showMessage(
+                "Wrong input!",
+                BGType.BG_TYPE_ERROR,
+            )
+            null
+        }
 }

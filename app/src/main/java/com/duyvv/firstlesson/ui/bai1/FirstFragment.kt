@@ -7,26 +7,32 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.duyvv.firstlesson.base.BaseFragment
 import com.duyvv.firstlesson.databinding.FragmentFirstBinding
+import com.duyvv.firstlesson.ui.MainActivity
 
 class FirstFragment : BaseFragment<FragmentFirstBinding>() {
-
     private val viewModel: FirstViewModel by viewModels()
 
     override fun getViewBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?
+        container: ViewGroup?,
     ) = FragmentFirstBinding.inflate(inflater, container, false)
 
-    override fun init() = Unit
+    private var activity: MainActivity? = null
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun init() {
+        activity = getActivity() as MainActivity
+    }
+
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         setUp()
     }
 
     private fun setUp() {
-
         binding.apply {
             btnSubmit.setOnClickListener {
                 onClickSubmit()
@@ -35,7 +41,11 @@ class FirstFragment : BaseFragment<FragmentFirstBinding>() {
     }
 
     private fun onClickSubmit() {
-        val str = binding.edtInput.text.trim().toString()
+        activity?.hideKeyboard()
+        val str =
+            binding.edtInput.text
+                .trim()
+                .toString()
         if (str.isEmpty()) {
             return
         }

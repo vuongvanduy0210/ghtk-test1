@@ -6,16 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.duyvv.firstlesson.R
 import com.duyvv.firstlesson.base.BaseFragment
 import com.duyvv.firstlesson.databinding.FragmentProfileBinding
 import com.duyvv.firstlesson.ui.MainActivity
 import kotlinx.coroutines.launch
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
-
     override fun getViewBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?
+        container: ViewGroup?,
     ) = FragmentProfileBinding.inflate(inflater, container, false)
 
     private var activity: MainActivity? = null
@@ -29,11 +29,15 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         historyAdapter = HistoryAdapter()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         setUp()
-        viewModel.fetchData()
+        // fetch data from json file in raw
+        viewModel.fetchData(resources.openRawResource(R.raw.profile))
     }
 
     private fun setUp() {
@@ -41,7 +45,19 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
             adapter = historyAdapter
         }
 
-        // show loading icon
+        // show loading icon and handle error
+        setUpLoading()
+
+        lifecycleScope.launch {
+            viewModel.profile.collect {
+                binding.tvName.text = it.fullName
+                binding.tvPosition.text = it.position
+                historyAdapter.setItems(it.histories ?: emptyList())
+            }
+        }
+    }
+
+    private fun setUpLoading() {
         lifecycleScope.launch {
             viewModel.isLoading.collect {
                 activity?.showLoading(isShow = it)
@@ -49,10 +65,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         }
 
         lifecycleScope.launch {
-            viewModel.profile.collect {
-                binding.tvName.text = it.fullName
-                binding.tvPosition.text = it.position
-                historyAdapter.setItems(it.histories ?: emptyList())
+            viewModel.responseMessage.collect {
+                activity?.showMessage(it.message, it.bgType)
             }
         }
     }
