@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:padding="10dp">
 
     <ImageView
@@ -18,7 +19,7 @@
         android:id="@+id/tvUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="UP!"
+        tools:text="UP!"
         android:textColor="@color/green"
         android:layout_marginStart="10dp"
         android:textStyle="bold"
@@ -31,9 +32,9 @@
         android:id="@+id/tvTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="02/10/2003"
+        android:text="@string/time"
         android:alpha="0.8"
-        android:textSize="15dp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -48,7 +49,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:textSize="18sp"
-        android:text="4 năm làm vieecj aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        tools:text="4 năm làm vieecj aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/tvTime"
         app:layout_constraintStart_toEndOf="@+id/tvUp"
