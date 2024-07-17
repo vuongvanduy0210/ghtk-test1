@@ -8,8 +8,11 @@ import androidx.fragment.app.viewModels
 import com.duyvv.firstlesson.base.BaseFragment
 import com.duyvv.firstlesson.databinding.FragmentFirstBinding
 import com.duyvv.firstlesson.ui.MainActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FirstFragment : BaseFragment<FragmentFirstBinding>() {
+
     private val viewModel: FirstViewModel by viewModels()
 
     override fun getViewBinding(
@@ -43,9 +46,7 @@ class FirstFragment : BaseFragment<FragmentFirstBinding>() {
     private fun onClickSubmit() {
         activity?.hideKeyboard()
         val str =
-            binding.edtInput.text
-                .trim()
-                .toString()
+            binding.edtInput.text.toString()
         if (str.isEmpty()) {
             return
         }

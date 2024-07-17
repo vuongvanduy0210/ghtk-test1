@@ -9,7 +9,9 @@ import com.duyvv.firstlesson.databinding.FragmentSecondBinding
 import com.duyvv.firstlesson.domain.Point
 import com.duyvv.firstlesson.ui.MainActivity
 import com.duyvv.firstlesson.ui.common.BGType
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SecondFragment : BaseFragment<FragmentSecondBinding>() {
     override fun getViewBinding(
         inflater: LayoutInflater,
@@ -42,36 +44,12 @@ class SecondFragment : BaseFragment<FragmentSecondBinding>() {
 
     private fun getPointFromInput(): List<Point>? =
         try {
-            val p1x =
-                binding.edtP1X.text
-                    .trim()
-                    .toString()
-                    .toFloat()
-            val p1y =
-                binding.edtP1Y.text
-                    .trim()
-                    .toString()
-                    .toFloat()
-            val p2x =
-                binding.edtP2X.text
-                    .trim()
-                    .toString()
-                    .toFloat()
-            val p2y =
-                binding.edtP2Y.text
-                    .trim()
-                    .toString()
-                    .toFloat()
-            val p3x =
-                binding.edtP3X.text
-                    .trim()
-                    .toString()
-                    .toFloat()
-            val p3y =
-                binding.edtP3Y.text
-                    .trim()
-                    .toString()
-                    .toFloat()
+            val p1x = binding.edtP1X.text.trim().toString().toFloat()
+            val p1y = binding.edtP1Y.text.trim().toString().toFloat()
+            val p2x = binding.edtP2X.text.trim().toString().toFloat()
+            val p2y = binding.edtP2Y.text.trim().toString().toFloat()
+            val p3x = binding.edtP3X.text.trim().toString().toFloat()
+            val p3y = binding.edtP3Y.text.trim().toString().toFloat()
             listOf(
                 Point(p1x, p1y),
                 Point(p2x, p2y),

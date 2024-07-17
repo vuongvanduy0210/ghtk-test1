@@ -1,8 +1,12 @@
 package com.duyvv.firstlesson.ui.bai1
 
 import com.duyvv.firstlesson.base.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class FirstViewModel : BaseViewModel() {
+@HiltViewModel
+class FirstViewModel @Inject constructor() : BaseViewModel() {
+
     fun countCharacter(str: String): HashMap<Char, Int> {
         val hashMap = HashMap<Char, Int>()
         for (char in str) {

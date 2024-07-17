@@ -10,6 +10,7 @@ import com.duyvv.firstlesson.utils.app.AppConstants.TOAST_DURATION
 import es.dmoral.toasty.Toasty
 
 abstract class BaseActivity<B : ViewBinding> : AppCompatActivity() {
+
     private var _binding: B? = null
     val binding get() = _binding!!
 
@@ -53,10 +54,7 @@ abstract class BaseActivity<B : ViewBinding> : AppCompatActivity() {
         }
     }
 
-    fun showMessage(
-        message: String,
-        bgType: BGType,
-    ) {
+    fun showMessage(message: String, bgType: BGType) {
         when (bgType) {
             BGType.BG_TYPE_NORMAL ->
                 Toasty.normal(context, message, TOAST_DURATION).show()

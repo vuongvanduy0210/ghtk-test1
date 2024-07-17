@@ -9,7 +9,9 @@ import androidx.navigation.ui.setupWithNavController
 import com.duyvv.firstlesson.R
 import com.duyvv.firstlesson.base.BaseFragment
 import com.duyvv.firstlesson.databinding.FragmentMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding>() {
     override fun getViewBinding(
         inflater: LayoutInflater,
@@ -18,10 +20,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
 
     override fun init() = Unit
 
-    override fun onViewCreated(
-        view: View,
-        savedInstanceState: Bundle?,
-    ) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setUp()
@@ -29,8 +28,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
 
     private fun setUp() {
         val navHostFragment =
-            childFragmentManager
-                .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+            childFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
         binding.bottomNavigationView.setupWithNavController(navController)
     }

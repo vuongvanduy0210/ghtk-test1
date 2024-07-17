@@ -39,8 +39,8 @@ class HistoryAdapter : Adapter<HistoryAdapter.HistoryViewHolder>() {
         position: Int,
     ) {
         val item = items[position]
-        holder.binding.tvUp.text = if (item.isUp) "UP!" else "DOWN!"
-        holder.binding.tvTitle.text = item.title
+        holder.binding.tvUp.text = if (item.isUp == true) "UP!" else "DOWN!"
+        holder.binding.tvTitle.text = item.title ?: ""
     }
 
     override fun getItemCount() = items.size

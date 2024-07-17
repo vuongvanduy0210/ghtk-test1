@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 
 open class BaseViewModel : ViewModel() {
+
     val isLoading = MutableSharedFlow<Boolean>()
     val responseMessage = MutableSharedFlow<ResponseMessage>()
 

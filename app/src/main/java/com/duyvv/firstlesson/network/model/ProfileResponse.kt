@@ -14,13 +14,12 @@ data class ProfileResponse(
     @SerializedName("success")
     var isSuccess: Boolean? = null,
 ) {
-    fun toProfileModel() =
-        Profile(
-            fullName = fullName ?: "",
-            histories = histories?.map { it.toHistoryModel() } ?: mutableListOf(),
-            position = position ?: "",
-            isSuccess = isSuccess ?: false,
-        )
+    fun toProfileModel() = Profile(
+        fullName = fullName,
+        histories = histories?.map { it.toHistoryModel() },
+        position = position,
+        isSuccess = isSuccess
+    )
 }
 
 data class HistoryResponse(
@@ -29,9 +28,8 @@ data class HistoryResponse(
     @SerializedName("title")
     var title: String? = null,
 ) {
-    fun toHistoryModel() =
-        History(
-            isUp = isUp ?: false,
-            title = title ?: "",
-        )
+    fun toHistoryModel() = History(
+        isUp = isUp,
+        title = title,
+    )
 }

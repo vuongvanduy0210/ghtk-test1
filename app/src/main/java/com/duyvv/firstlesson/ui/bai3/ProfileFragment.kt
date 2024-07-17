@@ -6,13 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.duyvv.firstlesson.R
 import com.duyvv.firstlesson.base.BaseFragment
 import com.duyvv.firstlesson.databinding.FragmentProfileBinding
 import com.duyvv.firstlesson.ui.MainActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
+
     override fun getViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,7 +39,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
         setUp()
         // fetch data from json file in raw
-        viewModel.fetchData(resources.openRawResource(R.raw.profile))
+        viewModel.getProfile()
     }
 
     private fun setUp() {

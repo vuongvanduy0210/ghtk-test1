@@ -1,14 +1,10 @@
 package com.duyvv.firstlesson.base
 
 sealed class NetworkResponse<out T>(
-    val data: T? = null,
+    val body: T? = null,
     val message: String? = null,
 ) {
-    class Success<T>(
-        data: T,
-    ) : NetworkResponse<T>(data = data)
+    class Success<T>(body: T) : NetworkResponse<T>(body = body)
 
-    class Error(
-        message: String,
-    ) : NetworkResponse<Nothing>(message = message)
+    class Error(message: String) : NetworkResponse<Nothing>(message = message)
 }

@@ -10,14 +10,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 
 abstract class BaseFragment<B : ViewBinding> : Fragment() {
-    private var _binding: B? = null
 
+    private var _binding: B? = null
     val binding get() = _binding!!
 
-    abstract fun getViewBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-    ): B
+    abstract fun getViewBinding(inflater: LayoutInflater, container: ViewGroup?): B
 
     abstract fun init()
 
