@@ -17,7 +17,7 @@ data class ProfileResponse(
     fun toProfileModel() =
         Profile(
             fullName = fullName ?: "",
-            histories = histories?.map { it.toHistoryModel() } ?: mutableListOf<History>(),
+            histories = histories?.map { it.toHistoryModel() } ?: mutableListOf(),
             position = position ?: "",
             isSuccess = isSuccess ?: false,
         )

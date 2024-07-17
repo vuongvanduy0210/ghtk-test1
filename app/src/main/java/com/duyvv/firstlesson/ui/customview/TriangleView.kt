@@ -9,8 +9,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import com.duyvv.firstlesson.domain.Point
-import com.duyvv.firstlesson.utils.app.AppConstants.TOAST_DURATION
-import es.dmoral.toasty.Toasty
+import com.duyvv.firstlesson.ui.bai2.TriangleDialog
 import kotlin.math.abs
 import kotlin.math.max
 
@@ -61,6 +60,7 @@ class TriangleView
                     maxOf(abs(p1.x), abs(p2.x), abs(p3.x)),
                     maxOf(abs(p1.y), abs(p2.y), abs(p3.y)),
                 ) + 0.1f
+
             // tìm tỷ lệ vẽ sao cho tam giác không bị tràn ra ngoài màn hình
             scaleFactor = minOf(width, height) / (2 * maxCoord)
         }
@@ -101,15 +101,17 @@ class TriangleView
             }
         }
 
+        // hàm chuyển toạ độ điểm từ Oxy sang toạ độ trên màn hình
         private fun transformToScreenCoordinates(
             p: Point,
             midX: Float,
             midY: Float,
-        ): Point = Point(midX + p.x * scaleFactor, midY - p.y * scaleFactor)
+        ) = Point(midX + p.x * scaleFactor, midY - p.y * scaleFactor)
 
         @SuppressLint("ClickableViewAccessibility")
         override fun onTouchEvent(event: MotionEvent?): Boolean {
             event?.takeIf { it.action == MotionEvent.ACTION_DOWN }?.let {
+                // tọa độ điểm chạm
                 val touchPoint =
                     Point(
                         (it.x - width / 2f) / scaleFactor,
@@ -119,24 +121,15 @@ class TriangleView
                     return false
                 }
                 if (isPointInTriangle(touchPoint)) {
-                    Toasty
-                        .success(
-                            context,
-                            "Point is inside the triangle",
-                            TOAST_DURATION,
-                        ).show()
+                    TriangleDialog(context, true).show()
                 } else {
-                    Toasty
-                        .warning(
-                            context,
-                            "Point is outside the triangle",
-                            TOAST_DURATION,
-                        ).show()
+                    TriangleDialog(context, false).show()
                 }
             }
             return true
         }
 
+        // hàm kiểm tra điểm có nằm trong tam giác hay không
         private fun isPointInTriangle(p: Point): Boolean {
             val b1 = sign(p, p1, p2) < 0.0f
             val b2 = sign(p, p2, p3) < 0.0f

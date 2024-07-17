@@ -52,7 +52,7 @@ class FirstFragment : BaseFragment<FragmentFirstBinding>() {
         binding.tvResult.visibility = View.VISIBLE
         var result = "Kết quả"
         viewModel.countCharacter(str).toSortedMap().forEach { (char, count) ->
-            result = "$result\n'$char' : $count"
+            result = if (char != ' ') "$result\n$char : $count" else "$result\nDấu cách : $count"
         }
         binding.tvResult.text = result
     }
