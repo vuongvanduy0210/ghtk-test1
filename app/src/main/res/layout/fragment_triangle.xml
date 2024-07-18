@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.bai2.SecondFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.bai2.TriangleFragment"
+    android:padding="20dp">
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -13,7 +14,7 @@
         android:layout_margin="5dp"
         android:background="@drawable/bg_bored_radius_2"
         android:orientation="vertical"
-        android:padding="10dp"
+        android:padding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -164,7 +165,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:text="@string/submit_button_txt" />
+            android:text="@string/draw_triangle" />
 
     </LinearLayout>
 

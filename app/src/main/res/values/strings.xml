@@ -8,9 +8,9 @@
     <string name="account_label">Tài khoản</string>
     <string name="setting_label">Cài đặt</string>
     <string name="profile_label">Hồ sơ nhân viên</string>
-    <string name="b1">Bài 1</string>
-    <string name="b2">Bài 2</string>
-    <string name="b3">Bài 3</string>
+    <string name="b1">Count Characters</string>
+    <string name="b2">Triangle</string>
+    <string name="b3">Profile</string>
     <string name="x">x</string>
     <string name="y">y</string>
     <string name="point_1">Point 1:</string>
@@ -19,4 +19,5 @@
     <string name="time">02/10/2003</string>
     <string name="ok">OK</string>
     <string name="ht">Hành trình</string>
+    <string name="draw_triangle">Draw triangle</string>
 </resources>

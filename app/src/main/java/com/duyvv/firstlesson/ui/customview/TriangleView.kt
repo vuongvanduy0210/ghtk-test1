@@ -24,6 +24,12 @@ class TriangleView @JvmOverloads constructor(
         strokeWidth = 5f
     }
 
+    private val pointPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        color = Color.RED
+        style = Paint.Style.FILL
+        strokeWidth = 7f
+    }
+
     private val trianglePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = Color.RED
         style = Paint.Style.STROKE
@@ -31,9 +37,10 @@ class TriangleView @JvmOverloads constructor(
     }
 
     // Các điểm của tam giác
-    private var p1 = Point(0f, 0f)
-    private var p2 = Point(0f, 0f)
-    private var p3 = Point(0f, 0f)
+    private var p1: Point? = null
+    private var p2: Point? = null
+    private var p3: Point? = null
+    private var touchPoint: Point? = null
 
     private var scaleFactor: Float = 1f
 
@@ -41,15 +48,15 @@ class TriangleView @JvmOverloads constructor(
         this.p1 = p1
         this.p2 = p2
         this.p3 = p3
-        calculateScaleFactor()
         invalidate()
     }
 
     private fun calculateScaleFactor() {
+        if (p1 == null || p2 == null || p3 == null) return
         // tìm toạ độ lớn nhất của 3 điểm
         val maxCoord = max(
-            maxOf(abs(p1.x), abs(p2.x), abs(p3.x)),
-            maxOf(abs(p1.y), abs(p2.y), abs(p3.y)),
+            maxOf(abs(p1!!.x), abs(p2!!.x), abs(p3!!.x)),
+            maxOf(abs(p1!!.y), abs(p2!!.y), abs(p3!!.y)),
         ) + 0.1f
 
         // tìm tỷ lệ vẽ sao cho tam giác không bị tràn ra ngoài màn hình
@@ -58,22 +65,42 @@ class TriangleView @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+
+        calculateScaleFactor()
+
         val midX = width / 2f
         val midY = height / 2f
 
         // Vẽ trục Oxy
         drawAxes(canvas, midX, midY)
 
-        // Vẽ tam giác
-        val screenPoints = listOf(p1, p2, p3).map {
+        if (p1 == null || p2 == null || p3 == null) return
+        val screenPoints = listOf(p1!!, p2!!, p3!!).map {
             transformToScreenCoordinates(it, midX, midY)
         }
+
+        // vẽ 3 điểm
+        drawPoints(canvas, screenPoints)
+
+        // Vẽ tam giác
         drawTriangle(canvas, screenPoints)
+
+        // vẽ điểm chạm
+        touchPoint?.let {
+            drawPoints(canvas, listOf(transformToScreenCoordinates(it, midX, midY)))
+        }
     }
 
     private fun drawAxes(canvas: Canvas, midX: Float, midY: Float) {
         canvas.drawLine(0f, midY, width.toFloat(), midY, paint)
         canvas.drawLine(midX, 0f, midX, height.toFloat(), paint)
+    }
+
+    private fun drawPoints(canvas: Canvas, points: List<Point>) {
+        if (p1 == null || p2 == null || p3 == null) return
+        points.forEach {
+            canvas.drawCircle(it.x, it.y, 7f, pointPaint)
+        }
     }
 
     private fun drawTriangle(canvas: Canvas, points: List<Point>) {
@@ -93,17 +120,16 @@ class TriangleView @JvmOverloads constructor(
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent?): Boolean {
+        if (p1 == null || p2 == null || p3 == null) return false
         event?.takeIf { it.action == MotionEvent.ACTION_DOWN }?.let {
             // lấy toạ độ điểm chạm chuyển sang toạ độ Oxy
-            val touchPoint =
+            touchPoint =
                 Point(
                     (it.x - width / 2f) / scaleFactor,
                     (height / 2f - it.y) / scaleFactor,
                 )
-            if (p1.isRootPoint() && p2.isRootPoint() && p3.isRootPoint()) {
-                return false
-            }
-            if (isPointInTriangle(touchPoint)) {
+            invalidate()
+            if (isPointInTriangle(touchPoint!!)) {
                 TriangleDialog(context, true).show()
             } else {
                 TriangleDialog(context, false).show()
@@ -114,9 +140,12 @@ class TriangleView @JvmOverloads constructor(
 
     // hàm kiểm tra điểm có nằm trong tam giác hay không
     private fun isPointInTriangle(p: Point): Boolean {
-        val b1 = sign(p, p1, p2) < 0.0f
-        val b2 = sign(p, p2, p3) < 0.0f
-        val b3 = sign(p, p3, p1) < 0.0f
+        if (p1 == null || p2 == null || p3 == null) {
+            return false
+        }
+        val b1 = sign(p, p1!!, p2!!) < 0.0f
+        val b2 = sign(p, p2!!, p3!!) < 0.0f
+        val b3 = sign(p, p3!!, p1!!) < 0.0f
         return (b1 == b2) && (b2 == b3)
     }
 

@@ -16,8 +16,9 @@
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
-        android:id="@+id/secondFragment"
-        android:name="com.duyvv.firstlesson.ui.bai2.SecondFragment"
-        android:label="fragment_second"
-        tools:layout="@layout/fragment_second" />
+        android:id="@+id/triangleFragment"
+        android:name="com.duyvv.firstlesson.ui.bai2.TriangleFragment"
+        android:label="fragment_triangle"
+        tools:layout="@layout/fragment_triangle" />
+
 </navigation>

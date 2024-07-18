@@ -9,14 +9,14 @@
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/secondFragment"
-        android:icon="@drawable/ic_android"
+        android:id="@+id/triangleFragment"
+        android:icon="@drawable/ic_triangle"
         android:title="@string/b2"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/profileFragment"
-        android:icon="@drawable/ic_account"
+        android:icon="@drawable/ic_profile"
         android:title="@string/b3"
         app:showAsAction="ifRoom" />
 </menu>

@@ -5,18 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.duyvv.firstlesson.base.BaseFragment
-import com.duyvv.firstlesson.databinding.FragmentSecondBinding
+import com.duyvv.firstlesson.databinding.FragmentTriangleBinding
 import com.duyvv.firstlesson.domain.Point
 import com.duyvv.firstlesson.ui.MainActivity
 import com.duyvv.firstlesson.ui.common.BGType
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
-class SecondFragment : BaseFragment<FragmentSecondBinding>() {
+
+class TriangleFragment : BaseFragment<FragmentTriangleBinding>() {
+
     override fun getViewBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-    ) = FragmentSecondBinding.inflate(inflater, container, false)
+        container: ViewGroup?
+    ) = FragmentTriangleBinding.inflate(inflater, container, false)
 
     private var activity: MainActivity? = null
 
@@ -24,12 +24,13 @@ class SecondFragment : BaseFragment<FragmentSecondBinding>() {
         activity = requireActivity() as MainActivity
     }
 
-    override fun onViewCreated(
-        view: View,
-        savedInstanceState: Bundle?,
-    ) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setUp()
+    }
+
+    private fun setUp() {
         binding.btnSubmit.setOnClickListener {
             drawTriangle()
         }
