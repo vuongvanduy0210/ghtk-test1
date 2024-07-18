@@ -6,7 +6,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 import com.duyvv.firstlesson.ui.common.BGType
-import com.duyvv.firstlesson.utils.app.AppConstants.TOAST_DURATION
+import com.duyvv.firstlesson.utils.app.TOAST_DURATION
 import es.dmoral.toasty.Toasty
 
 abstract class BaseActivity<B : ViewBinding> : AppCompatActivity() {

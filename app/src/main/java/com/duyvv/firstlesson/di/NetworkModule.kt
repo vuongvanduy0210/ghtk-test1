@@ -1,7 +1,7 @@
 package com.duyvv.firstlesson.di
 
 import com.duyvv.firstlesson.network.api.ProfileApi
-import com.duyvv.firstlesson.utils.app.AppConstants
+import com.duyvv.firstlesson.utils.app.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,7 +26,7 @@ object NetworkModule {
             .addConverterFactory(
                 GsonConverterFactory.create()
             )
-            .baseUrl(AppConstants.BASE_URL)
+            .baseUrl(BASE_URL)
             .client(okHttpClient).build()
 
     @Singleton

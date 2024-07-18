@@ -6,7 +6,7 @@ import com.duyvv.firstlesson.base.NetworkResponse
 import com.duyvv.firstlesson.domain.Profile
 import com.duyvv.firstlesson.repository.ProfileRepository
 import com.duyvv.firstlesson.ui.common.BGType
-import com.duyvv.firstlesson.utils.app.AppConstants.DEFAULT_MESSAGE_ERROR
+import com.duyvv.firstlesson.utils.app.DEFAULT_MESSAGE_ERROR
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow

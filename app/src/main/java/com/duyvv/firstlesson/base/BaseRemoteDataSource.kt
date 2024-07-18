@@ -1,6 +1,6 @@
 package com.duyvv.firstlesson.base
 
-import com.duyvv.firstlesson.utils.app.AppConstants.DEFAULT_MESSAGE_ERROR
+import com.duyvv.firstlesson.utils.app.DEFAULT_MESSAGE_ERROR
 import kotlinx.coroutines.CancellationException
 import retrofit2.HttpException
 import java.io.IOException
