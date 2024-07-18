@@ -45,6 +45,7 @@ class FirstFragment : BaseFragment<FragmentFirstBinding>() {
 
     private fun onClickSubmit() {
         activity?.hideKeyboard()
+        binding.edtInput.clearFocus()
         val str =
             binding.edtInput.text.toString()
         if (str.isEmpty()) {
