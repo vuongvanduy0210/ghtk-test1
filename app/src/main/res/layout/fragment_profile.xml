@@ -84,22 +84,23 @@
                     android:id="@+id/tvName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:text="Vương Văn Duy"
                     android:textColor="@color/black"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="Vương Văn Duy" />
 
                 <TextView
                     android:id="@+id/tvPosition"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
-                    tools:text="Mobile"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    tools:text="Mobile" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
+                    android:alpha="0.5"
                     android:background="@android:color/darker_gray" />
 
                 <RelativeLayout
@@ -132,8 +133,8 @@
                 android:id="@+id/circleImageView"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:src="@mipmap/ic_launcher"
                 android:layout_marginStart="10dp"
+                android:src="@mipmap/ic_launcher"
                 app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -143,31 +144,29 @@
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="15dp"
+                android:alpha="0.5"
                 android:background="@android:color/darker_gray"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
-            <TextView
-                android:id="@+id/textView"
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/ht"
-                android:textSize="20sp"
-                android:textColor="@color/green"
-                android:textStyle="bold"
-                android:layout_margin="10dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/view" />
+                app:layout_constraintTop_toBottomOf="@id/view"
+                app:tabIndicatorColor="@color/green"
+                app:tabSelectedTextColor="@color/green" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rcvHistory"
-                android:layout_width="0dp"
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
+                app:layout_constraintTop_toBottomOf="@id/tabLayout" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

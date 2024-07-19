@@ -178,7 +178,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
-        <com.duyvv.firstlesson.ui.bai3.customview.TriangleView
+        <com.duyvv.firstlesson.ui.bai2.customview.TriangleView
             android:id="@+id/triangleView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

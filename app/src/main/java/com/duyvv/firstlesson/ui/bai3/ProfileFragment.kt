@@ -4,11 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.duyvv.firstlesson.base.BaseFragment
 import com.duyvv.firstlesson.databinding.FragmentProfileBinding
 import com.duyvv.firstlesson.ui.MainActivity
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -22,13 +23,15 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
     private var activity: MainActivity? = null
 
-    private lateinit var historyAdapter: HistoryAdapter
+    private val profileHistoryAdapter: ProfileHistoryAdapter by lazy {
+        ProfileHistoryAdapter(this)
+    }
 
-    private val viewModel: ProfileViewModel by viewModels()
+    private lateinit var viewModel: ProfileViewModel
 
     override fun init() {
         activity = requireActivity() as MainActivity
-        historyAdapter = HistoryAdapter()
+        viewModel = ViewModelProvider(requireActivity())[ProfileViewModel::class.java]
     }
 
     override fun onViewCreated(
@@ -43,20 +46,35 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     }
 
     private fun setUp() {
-        binding.rcvHistory.apply {
-            adapter = historyAdapter
-        }
-
         // show loading icon and handle error
         setUpLoading()
+
+        // setup tablayout
+        setupTabLayout()
 
         lifecycleScope.launch {
             viewModel.profile.collect {
                 binding.tvName.text = it.fullName
                 binding.tvPosition.text = it.position
-                historyAdapter.setItems(it.histories ?: emptyList())
             }
         }
+    }
+
+    private fun setupTabLayout() {
+        binding.viewPager.adapter = profileHistoryAdapter
+        binding.tabLayout.apply {
+            background = null
+        }
+        binding.viewPager.apply {
+            isUserInputEnabled = false
+        }
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+            tab.text = when (position) {
+                0 -> "Hành trình"
+                1 -> "Hoạt động"
+                else -> ""
+            }
+        }.attach()
     }
 
     private fun setUpLoading() {
