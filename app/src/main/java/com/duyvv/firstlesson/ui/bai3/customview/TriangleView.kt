@@ -1,4 +1,4 @@
-package com.duyvv.firstlesson.ui.customview
+package com.duyvv.firstlesson.ui.bai3.customview
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -18,6 +18,7 @@ class TriangleView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
 ) : View(context, attrs, defStyleAttr) {
+
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = Color.BLACK
         style = Paint.Style.STROKE
@@ -42,6 +43,7 @@ class TriangleView @JvmOverloads constructor(
     private var p3: Point? = null
     private var touchPoint: Point? = null
 
+    // tỉ lệ vẽ tam giác
     private var scaleFactor: Float = 1f
 
     fun setPoints(p1: Point, p2: Point, p3: Point) {
@@ -112,15 +114,13 @@ class TriangleView @JvmOverloads constructor(
     }
 
     // hàm chuyển toạ độ điểm từ Oxy sang toạ độ trên màn hình
-    private fun transformToScreenCoordinates(
-        p: Point,
-        midX: Float,
-        midY: Float,
-    ) = Point(midX + p.x * scaleFactor, midY - p.y * scaleFactor)
+    private fun transformToScreenCoordinates(p: Point, midX: Float, midY: Float) =
+        Point(midX + p.x * scaleFactor, midY - p.y * scaleFactor)
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         if (p1 == null || p2 == null || p3 == null) return false
+
         event?.takeIf { it.action == MotionEvent.ACTION_DOWN }?.let {
             // lấy toạ độ điểm chạm chuyển sang toạ độ Oxy
             touchPoint =
@@ -129,6 +129,8 @@ class TriangleView @JvmOverloads constructor(
                     (height / 2f - it.y) / scaleFactor,
                 )
             invalidate()
+
+            // kiểm tra điểm chạm có nằm trong tam giác hay không
             if (isPointInTriangle(touchPoint!!)) {
                 TriangleDialog(context, true).show()
             } else {
@@ -149,9 +151,6 @@ class TriangleView @JvmOverloads constructor(
         return (b1 == b2) && (b2 == b3)
     }
 
-    private fun sign(
-        p: Point,
-        p1: Point,
-        p2: Point,
-    ): Float = (p.x - p2.x) * (p1.y - p2.y) - (p1.x - p2.x) * (p.y - p2.y)
+    private fun sign(p: Point, p1: Point, p2: Point): Float =
+        (p.x - p2.x) * (p1.y - p2.y) - (p1.x - p2.x) * (p.y - p2.y)
 }

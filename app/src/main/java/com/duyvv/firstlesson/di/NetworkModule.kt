@@ -1,7 +1,7 @@
 package com.duyvv.firstlesson.di
 
 import com.duyvv.firstlesson.network.api.ProfileApi
-import com.duyvv.firstlesson.utils.app.BASE_URL
+import com.duyvv.firstlesson.utils.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
