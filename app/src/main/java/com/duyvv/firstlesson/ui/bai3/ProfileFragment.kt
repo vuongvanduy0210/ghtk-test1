@@ -5,13 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.duyvv.firstlesson.base.BaseFragment
 import com.duyvv.firstlesson.databinding.FragmentProfileBinding
 import com.duyvv.firstlesson.ui.MainActivity
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
@@ -41,6 +39,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         setUp()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
         // fetch data from json file in raw
         viewModel.getProfile()
     }
@@ -52,11 +55,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         // setup tablayout
         setupTabLayout()
 
-        lifecycleScope.launch {
-            viewModel.profile.collect {
-                binding.tvName.text = it.fullName
-                binding.tvPosition.text = it.position
-            }
+        collectLifecycleFlow(viewModel.profile) {
+            binding.tvName.text = it.fullName
+            binding.tvPosition.text = it.position
         }
     }
 
@@ -78,16 +79,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     }
 
     private fun setUpLoading() {
-        lifecycleScope.launch {
-            viewModel.isLoading.collect {
-                activity?.showLoading(isShow = it)
-            }
+        collectLifecycleFlow(viewModel.isLoading) {
+            activity?.showLoading(isShow = it)
         }
-
-        lifecycleScope.launch {
-            viewModel.responseMessage.collect {
-                activity?.showMessage(it.message, it.bgType)
-            }
+        collectLifecycleFlow(viewModel.responseMessage) {
+            activity?.showMessage(it.message, it.bgType)
         }
     }
 
